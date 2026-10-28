@@ -35,20 +35,16 @@ module FIFO(
             if (wr && !full || wr && rd) wr_ptr <= wr_ptr + 1;
             if (rd && !empty)            rd_ptr <= rd_ptr + 1;
 
-            //$display("DUT | wr=%0d rd=%0d | fifo_cnt BEFORE=%0d | empty=%0d full=%0d", wr, rd, fifo_cnt, empty, full);
-
             case ({rd,wr})
                 2'b00:begin
                 end
                 2'b01:begin
-                    //fifo_cnt <= (fifo_cnt == 8) ?8:fifo_cnt + 1;
                     if (!full) begin
                         fifo_cnt <= fifo_cnt + 1;
                     end
                 end
                 2'b10:begin
                     if (!empty) begin
-                        //$display("DUT | READ | fifo_cnt %0d -> %0d", fifo_cnt, fifo_cnt - 1);
                         fifo_cnt <= fifo_cnt - 1;
                     end
                 end
